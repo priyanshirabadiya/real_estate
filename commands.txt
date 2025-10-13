@@ -1,0 +1,3 @@
+Frontend open : npm start    = for start app
+              : npm run json-server  = for start json-server
+
