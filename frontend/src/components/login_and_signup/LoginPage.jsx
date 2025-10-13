@@ -38,31 +38,6 @@ const RealnestLogin = () => {
     return Object.keys(formErrors).length === 0;
   };
 
-  // const handleSubmit = () => {
-  //   if (validateForm()) {
-  //     console.log("Login successful:", { email, password, role, rememberMe });
-
-  //     toast.success(`Login Successful as ${role}! Redirecting...`, {
-  //       position: "top-right",
-  //       autoClose: 2500,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: false,
-  //       draggable: true,
-  //       theme: "colored",
-  //     });
-
-  //     setTimeout(() => {
-  //       // ✅ redirect based on role
-  //       if (role === "admin") {
-  //         navigate("/admin/dashboard");
-  //       } else {
-  //         navigate("/");
-  //       }
-  //     }, 2500);
-  //   }
-  // };
-
   const handleSubmit = async () => {
     if (validateForm()) {
       try {
