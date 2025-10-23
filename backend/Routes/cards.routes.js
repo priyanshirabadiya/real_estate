@@ -1,24 +1,26 @@
-const express = require('express');
+const express = require("express");
 const cardRoutes = express.Router();
 
 const {
-    uploadCard,
-    getAllCards,
-    getSingleCard,
-    updateCard,
-    deleteCard,
-} = require('../controller/cards.controller');
+  uploadCard,
+  getAllCards,
+  getSingleCard,
+  updateCard,
+  deleteCard,
+} = require("../controller/cards.controller");
 
-const { verifyToken } = require('../helpers/verifyToken');
+const { verifyToken } = require("../helpers/verifyToken");
 
-cardRoutes.post('/upload', verifyToken, uploadCard);
+console.log("verifyToken:", verifyToken);
 
-cardRoutes.get('/getall', verifyToken, getAllCards);
+cardRoutes.post("/upload", verifyToken, uploadCard);
 
-cardRoutes.get('/getsingle/:id', verifyToken, getSingleCard);
+cardRoutes.get("/getall", verifyToken, getAllCards);
 
-cardRoutes.put('/update/:id', verifyToken, updateCard);
+cardRoutes.get("/getsingle/:id", verifyToken, getSingleCard);
 
-cardRoutes.delete('/delete/:id', verifyToken, deleteCard);
+cardRoutes.put("/update/:id", verifyToken, updateCard);
+
+cardRoutes.delete("/delete/:id", verifyToken, deleteCard);
 
 module.exports = cardRoutes;

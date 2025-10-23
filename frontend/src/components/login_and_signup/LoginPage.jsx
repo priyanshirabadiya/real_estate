@@ -38,49 +38,59 @@ const RealnestLogin = () => {
     return Object.keys(formErrors).length === 0;
   };
 
-  const handleSubmit = async () => {
-    if (validateForm()) {
-      try {
-        const response = await fetch("http://localhost:1155/user/loginUser", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+const handleSubmit = async () => {
+  if (validateForm()) {
+    try {
+      const response = await fetch("http://localhost:1155/user/loginUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      console.log("Login response:", data);
+
+      if (response.ok) {
+        // ✅ Store token and user info + selected role in localStorage
+        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...data, role }) // attach frontend role selection
+        );
+
+        toast.success("Login successful! Redirecting...", {
+          position: "top-right",
+          autoClose: 2000,
+          theme: "colored",
         });
 
-        const data = await response.json();
-        console.log("Login response:", data);
+        console.log("data is:", data);
 
-        if (response.ok) {
-          localStorage.setItem("token", data.accessToken);
-          localStorage.setItem("user", JSON.stringify(data));
-
-          toast.success("Login successful! Redirecting...", {
-            position: "top-right",
-            autoClose: 2000,
-            theme: "colored",
-          });
-
-          setTimeout(() => {
-            if (data.role === "admin") navigate("/admin/dashboard");
-            else navigate("/");
-          }, 2000);
-        } else {
-          toast.error(data.message || "Invalid credentials", {
-            position: "top-right",
-            autoClose: 3000,
-            theme: "colored",
-          });
-        }
-      } catch (error) {
-        console.error("Login Error:", error);
-        toast.error("Something went wrong. Please try again later.", {
+        // ✅ Redirect based on user-selected role
+        setTimeout(() => {
+          if (role === "admin") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/");
+          }
+        }, 2000);
+      } else {
+        toast.error(data.message || "Invalid credentials", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
       }
+    } catch (error) {
+      console.error("Login Error:", error);
+      toast.error("Something went wrong. Please try again later.", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
     }
-  };
+  }
+};
 
   const handleGoogleLogin = () => {
     window.location.href =

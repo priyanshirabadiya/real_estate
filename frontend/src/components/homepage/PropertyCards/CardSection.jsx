@@ -13,13 +13,21 @@ import "./CardSection.css";
 
 export default function ForRentCard() {
   const [cards, setCards] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
-      .get("http://localhost:1530/cards")
-      .then((res) => setCards(res.data))
+      .get("http://localhost:1155/cards/getall", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("log res:", res);
+        setCards(res.data.cards || []);
+      })
       .catch((err) => console.error("Error fetching cards:", err));
-  }, []);
+  }, [token]);
 
   const limitedCards = cards.slice(0, 6);
 
@@ -28,7 +36,7 @@ export default function ForRentCard() {
       <div className="container py-3">
         <div className="row g-4">
           {limitedCards.map((card) => (
-            <div key={card?.id} className="col-12 col-sm-6 col-lg-4">
+            <div key={card._id} className="col-12 col-sm-6 col-lg-4">
               <Card card={card} />
             </div>
           ))}
@@ -39,7 +47,7 @@ export default function ForRentCard() {
 }
 
 function Card({ card }) {
-  const imageList = [card?.image1, card?.image2, card?.image3];
+  const imageList = [card?.image1, card?.image2, card?.image3].filter(Boolean);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -52,12 +60,13 @@ function Card({ card }) {
   const prevImage = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentIndex((prev) => (prev === 0 ? imageList.length - 1 : prev - 1));
+    setCurrentIndex((prev) =>
+      prev === 0 ? imageList.length - 1 : prev - 1
+    );
   };
 
   const handleAddToCart = () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
     const exists = cart.some((item) => item.id === card.id);
 
     if (!exists) {
@@ -83,7 +92,6 @@ function Card({ card }) {
 
   const handleAddToWishlist = () => {
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
     const exists = wishlist.some((item) => item.id === card.id);
 
     if (!exists) {
@@ -105,6 +113,7 @@ function Card({ card }) {
 
     navigate("/wishlist");
   };
+
   const currentImgSrc = imageList[currentIndex];
 
   return (
@@ -116,6 +125,7 @@ function Card({ card }) {
         <span className="featured-badge position-absolute top-0 start-0 m-4">
           FEATURED
         </span>
+
         <img
           src={currentImgSrc}
           className="w-100 frc-img"
