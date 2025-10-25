@@ -6,13 +6,26 @@ import "./Agents.css";
 export default function Agents() {
   const [agents, setAgents] = useState([]);
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("token");
+  
   useEffect(() => {
+    if (!token) {
+      console.error("No token found in localStorage");
+      return;
+    }
+
     axios
-      .get("http://localhost:1530/agents")
-      .then((res) => setAgents(res.data))
+      .get("http://localhost:1155/agents/getall", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("Agents Response:", res.data);
+        setAgents(res.data.agents || []);
+      })
       .catch((err) => console.error("Failed to fetch agents:", err));
-  }, []);
+  }, [token]);
 
   return (
     <section className="agents-section py-5">

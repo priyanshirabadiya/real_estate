@@ -51,11 +51,10 @@ const handleSubmit = async () => {
       console.log("Login response:", data);
 
       if (response.ok) {
-        // ✅ Store token and user info + selected role in localStorage
         localStorage.setItem("token", data.accessToken);
         localStorage.setItem(
           "user",
-          JSON.stringify({ ...data, role }) // attach frontend role selection
+          JSON.stringify({ ...data, role })
         );
 
         toast.success("Login successful! Redirecting...", {
@@ -64,9 +63,6 @@ const handleSubmit = async () => {
           theme: "colored",
         });
 
-        console.log("data is:", data);
-
-        // ✅ Redirect based on user-selected role
         setTimeout(() => {
           if (role === "admin") {
             navigate("/admin/dashboard");

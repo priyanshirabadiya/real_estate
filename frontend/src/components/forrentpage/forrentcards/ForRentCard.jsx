@@ -6,85 +6,120 @@ import { FaShower } from "react-icons/fa";
 import { IoCarOutline } from "react-icons/io5";
 import { TfiRulerAlt2 } from "react-icons/tfi";
 import { IoIosArrowForward } from "react-icons/io";
-import { RiHomeLine } from "react-icons/ri";
-import { PiLessThanBold, PiGreaterThanBold } from "react-icons/pi";
 import "./ForRentCard.css";
 
-export default function ForRentCard() {
+export default function ForRentCard({ filters }) {
   const [cards, setCards] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  console.log("filteredCards=", filteredCards);
+  // Fetch all cards once
+  useEffect(() => {
+    const fetchFilteredCards = async () => {
+      try {
+        const res = await axios.get(`http://localhost:1155/cards/getall`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Fetched cards:", res.data.cards);
+        setCards(res.data.cards || []);
+        setFilteredCards(res.data.cards || []);
+      } catch (err) {
+        console.error("Error fetching filtered cards:", err);
+      }
+    };
+    fetchFilteredCards();
+  }, [token]);
+
+  // Apply filters when filters change
+  useEffect(() => {
+    let filtered = cards;
+    console.log("filtered", filtered);
+    console.log("filters", filters);
+
+    if (filters.keyword) {
+      console.log("enter1", filters.keyword);
+      const kw = filters.keyword.toLowerCase();
+      filtered = filtered.filter(
+        (c) =>
+          c.title?.toLowerCase().includes(kw) ||
+          c.category?.toLowerCase().includes(kw) ||
+          c.description?.toLowerCase().includes(kw)
+      );
+    }
+
+    if (filters.city) {
+      filtered = filtered.filter(
+        (c) => c.city?.toLowerCase() === filters.city.toLowerCase()
+      );
+    }
+
+    // if (filters.area)
+    //   filtered = filtered.filter(
+    //     (c) => c.area?.toLowerCase() === filters.area.toLowerCase()
+    //   );
+
+    // if (filters.rentStatus)
+    //   filtered = filtered.filter(
+    //     (c) => c.status?.toLowerCase() === filters.rentStatus.toLowerCase()
+    //   );
+    // if (filters.type)
+    //   filtered = filtered.filter(
+    //     (c) => c.type?.toLowerCase() === filters.type.toLowerCase()
+    //   );
+    // if (filters.bedrooms)
+    //   filtered = filtered.filter(
+    //     (c) => String(c.bedrooms) === String(filters.bedrooms)
+    //   );
+    // if (filters.bathrooms)
+    //   filtered = filtered.filter(
+    //     (c) => String(c.bathrooms) === String(filters.bathrooms)
+    //   );
+    // if (filters.minPrice)
+    //   filtered = filtered.filter(
+    //     (c) =>
+    //       parseFloat(c.price) >= parseFloat(filters.minPrice.replace(/\$/g, ""))
+    //   );
+    // if (filters.maxPrice)
+    //   filtered = filtered.filter(
+    //     (c) =>
+    //       parseFloat(c.price) <= parseFloat(filters.maxPrice.replace(/\$/g, ""))
+    //   );
+
+    setFilteredCards(filtered);
+    console.log("setting filteredCards to:", filtered);
+
+    // setCurrentPage(1);
+  }, [filters, cards]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:1530/cards")
-      .then((res) => setCards(res.data))
-      .catch((err) => console.error("Error fetching cards:", err));
-  }, []);
+    console.log("🔥 filteredCards updated:", filteredCards);
+  }, [filteredCards]);
 
-  const limitedCards = cards.slice(0, 22);
-
+  // Pagination logic
   const itemsPerPage = currentPage === 1 ? 12 : 10;
   const startIndex = currentPage === 1 ? 0 : 12;
-  const visibleCards = limitedCards.slice(
+  const visibleCards = filteredCards.slice(
     startIndex,
     startIndex + itemsPerPage
   );
-  const navigate = useNavigate();
 
+  // (Your card rendering stays the same)
   return (
     <div className="mansi">
       <div className="container py-3">
-        <nav className="mb-3">
-          <ol className="breadcrumb small mb-0">
-            <li
-              className="breadcrumb-item"
-              onClick={() => navigate("/")}
-              style={{ color: "#77c720" }}
-            >
-              <RiHomeLine className="me-1 text-dark" /> Home
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              For Rent
-            </li>
-          </ol>
-        </nav>
-
         <div className="name">
           <h2 className="header mb-3">For Rent</h2>
-          <p>{limitedCards.length} Properties</p>
+          <p>{filteredCards.length} Properties</p>
         </div>
 
         <div className="row g-4">
           {visibleCards.map((card) => (
-            <div key={card?.id} className="col-12 col-sm-6 col-lg-4">
+            <div key={card._id} className="col-12 col-sm-6 col-lg-4">
               <Card card={card} />
             </div>
           ))}
-        </div>
-
-        <div className="d-flex justify-content-center mt-5">
-          <ul className="pagination">
-            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-              <button className="page-link" onClick={() => setCurrentPage(1)}>
-                <PiLessThanBold />
-              </button>
-            </li>
-            <li className={`page-item ${currentPage === 1 ? "active" : ""}`}>
-              <button className="page-link" onClick={() => setCurrentPage(1)}>
-                1
-              </button>
-            </li>
-            <li className={`page-item ${currentPage === 2 ? "active" : ""}`}>
-              <button className="page-link" onClick={() => setCurrentPage(2)}>
-                2
-              </button>
-            </li>
-            <li className={`page-item ${currentPage === 2 ? "disabled" : ""}`}>
-              <button className="page-link" onClick={() => setCurrentPage(2)}>
-                <PiGreaterThanBold />
-              </button>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
@@ -92,7 +127,7 @@ export default function ForRentCard() {
 }
 
 function Card({ card }) {
-  const imageList = [card?.image1, card?.image2, card?.image3];
+  const imageList = [card?.image1, card?.image2, card?.image3].filter(Boolean);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -112,7 +147,6 @@ function Card({ card }) {
 
   const handleAddToCart = () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
     const exists = cart.some((item) => item.id === card.id);
 
     if (!exists) {
@@ -170,7 +204,6 @@ function Card({ card }) {
           ${card?.price} <small>/mo</small>
         </h6>
         <p className="text-muted cl">{card?.category}</p>
-
         <div className="ii d-flex justify-content-center gap-3 flex-wrap">
           <span>
             <LuBedDouble /> {card?.bedrooms}
@@ -185,7 +218,8 @@ function Card({ card }) {
             <TfiRulerAlt2 /> {card?.area}
           </span>
         </div>
-        <div className="mt-2 ">
+
+        <div className="mt-2">
           <button
             type="button"
             className="btn cart-btn btn-sm mt-2 w-50"

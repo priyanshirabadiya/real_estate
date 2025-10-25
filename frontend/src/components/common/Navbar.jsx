@@ -1,10 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoMdLogIn } from "react-icons/io";
 import "./Navbar.css";
 export default function Navbar() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    } catch (e) {
+      console.error("Error during logout:", e);
+    }
+    navigate("/LoginPage");
+  };
   return (
     <>
       <nav className="custom-navbar navbar navbar-expand-lg bg-white">
@@ -73,16 +83,21 @@ export default function Navbar() {
                   <FaRegHeart size={24} />
                 </Link>
               </li>
+              {/* logout */}
               <li className="custom-nav-item nav-item">
-                <Link className="custom-nav-link nav-link" to="/signuppage">
+                <button
+                  className="btn btn-link custom-nav-link nav-link"
+                  onClick={handleLogout}
+                  aria-label="Logout"
+                  title="Logout"
+                >
                   <IoMdLogIn size={24} />
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-
       <div
         className="custom-offcanvas offcanvas offcanvas-start"
         tabIndex="-1"
@@ -139,10 +154,16 @@ export default function Navbar() {
                 <FaRegHeart size={24} />
               </Link>
             </li>
+            {/* logout */}
             <li className="custom-offcanvas-item nav-item">
-              <Link className="custom-offcanvas-link nav-link" to="/signuppage">
+              <button
+                className="btn btn-link custom-nav-link nav-link"
+                onClick={handleLogout}
+                aria-label="Logout"
+                title="Logout"
+              >
                 <IoMdLogIn size={24} />
-              </Link>
+              </button>
             </li>
           </ul>
         </div>

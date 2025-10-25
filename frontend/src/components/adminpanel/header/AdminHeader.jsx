@@ -3,11 +3,23 @@ import { TfiHome } from "react-icons/tfi";
 import { FiUsers, FiLayers } from "react-icons/fi";
 import { TbLayoutDashboard } from "react-icons/tb";
 import { RiUserSettingsLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./AdminHeader.css";
+import { IoMdLogIn } from "react-icons/io";
 
 const AdminHeader = () => {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    } catch (e) {
+      console.error("Error during logout:", e);
+    }
+    navigate("/LoginPage");
+  };
+
   return (
     <header className="admin-header-section d-flex align-items-center justify-content-between px-3 py-2 shadow-sm">
       <div className="admin-brand-container d-flex align-items-center">
@@ -26,6 +38,14 @@ const AdminHeader = () => {
           </div>
           <img src="/images/admin.jpg" alt="profile" className="profile-img" />
         </div>
+        <button
+          className="btn btn-link custom-nav-link nav-link"
+          onClick={handleLogout}
+          aria-label="Logout"
+          title="Logout"
+        >
+          <IoMdLogIn size={24} />
+        </button>
         <button
           className="btn btn-outline-secondary admin-toggle-btn ms-3"
           type="button"

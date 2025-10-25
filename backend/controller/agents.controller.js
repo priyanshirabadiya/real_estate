@@ -1,5 +1,5 @@
-const Agent = require('../model/agents.model');
-const Message = require('../helpers/Message');
+const Agent = require("../model/agents.model");
+const Message = require("../helpers/Message");
 
 // ========== Upload Agent ==========
 exports.uploadAgent = async (req, res) => {
@@ -74,21 +74,16 @@ exports.deleteAgent = async (req, res) => {
 };
 
 // ========== Get All Agents ==========
+
 exports.getAllAgents = async (req, res) => {
+  console.log("Enter to funtion");
   try {
-    const agents = await Agent.find({ isDelete: false }).sort({ createdAt: -1 });
+    const agents = await Agent.find().sort({ createdAt: -1 });
 
-    const formattedAgents = agents.map(agent => ({
-      ...agent._doc,
-      image: agent.image?.data
-        ? `data:${agent.image.contentType};base64,${agent.image.data.toString('base64')}`
-        : null,
-    }));
-
-    res.status(200).send({ agents: formattedAgents });
+    res.status(200).send({ agents: agents });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: Message.INTERNAL_SERVER_ERROR });
+    res.status(500).send({ message: "Internal Server Error" });
   }
 };
 
@@ -105,7 +100,9 @@ exports.getSingleAgent = async (req, res) => {
     const formattedAgent = {
       ...agent._doc,
       image: agent.image?.data
-        ? `data:${agent.image.contentType};base64,${agent.image.data.toString('base64')}`
+        ? `data:${agent.image.contentType};base64,${agent.image.data.toString(
+            "base64"
+          )}`
         : null,
     };
 

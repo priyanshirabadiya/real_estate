@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 
 const agentSchema = mongoose.Schema(
   {
+    id: {
+      type: String,
+    },
     name: {
       type: String,
-      required: true,
     },
     title: {
       type: String,
@@ -13,14 +15,11 @@ const agentSchema = mongoose.Schema(
       type: String,
     },
     image: {
-      data: Buffer,
-      contentType: String,
+      // data: Buffer,
+      // contentType: String,
+      type: String,
     },
     verified: {
-      type: Boolean,
-      default: false,
-    },
-    isDelete: {
       type: Boolean,
       default: false,
     },

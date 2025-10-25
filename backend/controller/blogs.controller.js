@@ -1,5 +1,5 @@
-const Blog = require('../model/blog.model');
-const Message = require('../helpers/Message');
+const Blog = require("../model/blog.model");
+const Message = require("../helpers/Message");
 
 exports.uploadBlog = async (req, res) => {
   try {
@@ -53,7 +53,11 @@ exports.updateBlog = async (req, res) => {
       }
     }
 
-    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
 
     if (!updatedBlog) {
       return res.status(404).send({ message: Message.BLOG_NOT_FOUND });
@@ -68,7 +72,11 @@ exports.updateBlog = async (req, res) => {
 
 exports.deleteBlog = async (req, res) => {
   try {
-    const blog = await Blog.findByIdAndUpdate(req.params.id, { isDelete: true }, { new: true });
+    const blog = await Blog.findByIdAndUpdate(
+      req.params.id,
+      { isDelete: true },
+      { new: true }
+    );
 
     if (!blog) {
       return res.status(404).send({ message: Message.BLOG_NOT_FOUND });
@@ -83,19 +91,8 @@ exports.deleteBlog = async (req, res) => {
 
 exports.getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find({ isDelete: false }).sort({ createdAt: -1 });
-
-    const formattedBlogs = blogs.map(blog => ({
-      ...blog._doc,
-      image: blog.image?.data
-        ? `data:${blog.image.contentType};base64,${blog.image.data.toString('base64')}`
-        : null,
-      authorImage: blog.authorImage?.data
-        ? `data:${blog.authorImage.contentType};base64,${blog.authorImage.data.toString('base64')}`
-        : null,
-    }));
-
-    res.status(200).send({ blogs: formattedBlogs });
+    const blogs = await Blog.find().sort({ createdAt: -1 });
+    res.status(200).send({ blogs: blogs });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: Message.INTERNAL_SERVER_ERROR });
@@ -114,10 +111,14 @@ exports.getSingleBlog = async (req, res) => {
     const formattedBlog = {
       ...blog._doc,
       image: blog.image?.data
-        ? `data:${blog.image.contentType};base64,${blog.image.data.toString('base64')}`
+        ? `data:${blog.image.contentType};base64,${blog.image.data.toString(
+            "base64"
+          )}`
         : null,
       authorImage: blog.authorImage?.data
-        ? `data:${blog.authorImage.contentType};base64,${blog.authorImage.data.toString('base64')}`
+        ? `data:${
+            blog.authorImage.contentType
+          };base64,${blog.authorImage.data.toString("base64")}`
         : null,
     };
 

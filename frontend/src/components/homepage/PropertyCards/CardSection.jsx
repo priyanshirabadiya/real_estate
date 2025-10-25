@@ -23,7 +23,6 @@ export default function ForRentCard() {
         },
       })
       .then((res) => {
-        console.log("log res:", res);
         setCards(res.data.cards || []);
       })
       .catch((err) => console.error("Error fetching cards:", err));

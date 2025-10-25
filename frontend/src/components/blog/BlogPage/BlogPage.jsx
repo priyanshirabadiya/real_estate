@@ -6,28 +6,41 @@ import "./BlogPage.css";
 
 function BlogPage() {
   const [blogs, setBlogs] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:1530/blogs")
-      .then((res) => setBlogs(res.data))
-      .catch((err) => console.error("Error fetching blogs:", err));
-  }, []);
-
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  
+  useEffect(() => {
+    if (!token) {
+      console.error("No token found in localStorage");
+      return;
+    }
+
+    axios
+      .get("http://localhost:1155/blogs/getall", {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ Pass token in header
+        },
+      })
+      .then((res) => {
+        console.log("Blogs Response:", res.data);
+        setBlogs(res.data.blogs || []); // ✅ Access blogs array
+      })
+      .catch((err) => console.error("Error fetching blogs:", err));
+  }, [token]);
 
   return (
     <div className="blog-page-6789">
       <div className="container mt-5 containerblog-6789">
         <div className="row rowblog-6789">
+          {/* Left Section: Blogs */}
           <div className="col-md-8 colmd8blog-6789">
             {blogs.map((item) => (
-              <div className="blog-post-6789 mb-5" key={item.id}>
+              <div className="blog-post-6789 mb-5" key={item._id}>
                 <img
                   src={item.image}
-                  className="img-fluid  mainimage-6789"
+                  className="img-fluid mainimage-6789"
                   alt="blog"
-                  onClick={() => navigate(`/blog/${item.id}`)}
+                  onClick={() => navigate(`/blog/${item._id}`)}
                 />
                 <br />
                 <br />
@@ -36,7 +49,10 @@ function BlogPage() {
                     style={{ textDecoration: "none" }}
                     className="mt-3 title-blog-6789"
                     href="#"
-                    onClick={() => navigate(`/blog/${item.id}`)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(`/blog/${item._id}`);
+                    }}
                   >
                     {item.title}
                   </a>
@@ -49,13 +65,15 @@ function BlogPage() {
                 <div className="author-block-page-6789 mt-4">
                   <div className="d-flex justify-content-between align-items-center flex-wrap flexing-wrap-6789">
                     <div className="d-flex align-items-center flex-wrap">
-                      <img
-                        src={item.authorImage}
-                        alt="Author"
-                        className="rounded-circle me-2 author-page-img-6789"
-                        width="50"
-                        height="50"
-                      />
+                      {item.authorImage && (
+                        <img
+                          src={item.authorImage}
+                          alt="Author"
+                          className="rounded-circle me-2 author-page-img-6789"
+                          width="50"
+                          height="50"
+                        />
+                      )}
                       <span className="me-3 authordetail-6789">
                         <span className="textblack-6789">by</span>{" "}
                         <span className="textgreen-6789">{item.author}</span>
@@ -84,9 +102,9 @@ function BlogPage() {
 
                     <button
                       className="btn2-6789"
-                      onClick={() => navigate(`/blog/${item.id}`)}
+                      onClick={() => navigate(`/blog/${item._id}`)}
                     >
-                      read more
+                      Read More
                     </button>
                   </div>
                 </div>
@@ -94,6 +112,7 @@ function BlogPage() {
             ))}
           </div>
 
+          {/* Right Section: Sidebar */}
           <div className="col-md-3 colmd3blog-6789">
             <div className="sticky-sidebar-scroll-6789">
               <div className="sidebar-box-6789">

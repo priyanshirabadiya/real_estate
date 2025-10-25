@@ -36,6 +36,7 @@ exports.registerUser = async (req, res) => {
       { userID: newUser._id },
       process.env.JWT_SECREATE
     );
+    
     res.status(201).send({
       message: "User successfully registered",
       userName: newUser.userName,

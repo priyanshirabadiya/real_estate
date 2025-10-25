@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const blogSchema = mongoose.Schema(
   {
+    id: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
     title: {
       type: String,
       required: true,
@@ -9,17 +15,12 @@ const blogSchema = mongoose.Schema(
     description: {
       type: String,
     },
-    image: {
-      data: Buffer,
-      contentType: String,
-    },
     author: {
       type: String,
       required: true,
     },
     authorImage: {
-      data: Buffer,
-      contentType: String,
+      type: String,
     },
     date: {
       type: String,
@@ -30,10 +31,6 @@ const blogSchema = mongoose.Schema(
     comments: {
       type: Number,
       default: 0,
-    },
-    isDelete: {
-      type: Boolean,
-      default: false,
     },
   },
   {

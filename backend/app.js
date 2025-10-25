@@ -3,10 +3,13 @@ const env = require("dotenv");
 const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-
 env.config();
 const app = express();
 const port = process.env.PORT || 1155;
+const userRoutes = require("./Routes/user.routes");
+const cardRoutes = require("./Routes/cards.routes");
+const blogRoutes = require("./Routes/blog.routes");
+const agentRoutes = require("./Routes/agents.routes");
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -25,20 +28,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const userRoutes = require("./Routes/user.routes");
-const cardRoutes = require("./Routes/cards.routes");
-const blogRoutes = require("./Routes/blog.routes");
-const agentRoutes = require("./Routes/agents.routes");
-
 app.use("/cards", cardRoutes);
 app.use("/user", userRoutes);
-app.use("/blog", blogRoutes);
+app.use("/blogs", blogRoutes);
 app.use("/agents", agentRoutes);
-
-// ✅ Test routes
-app.get("/user", (req, res) => {
-  res.send("user route is working");
-});
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to server</h1>");

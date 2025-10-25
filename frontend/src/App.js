@@ -30,14 +30,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route 
-           path="/" 
-           element={ 
-             <EnhancedErrorBoundary name="Home Page"> 
-                  <Home /> 
-             </EnhancedErrorBoundary>
-            }
-            />
+        <Route
+          path="/"
+          element={
+            <EnhancedErrorBoundary name="Home Page">
+              <Home />
+            </EnhancedErrorBoundary>
+          }
+        />
         <Route
           path="/product"
           element={
@@ -160,16 +160,71 @@ export default function App() {
           }
         />
 
-         {/* ================= Admin Routes ================= */}
-     <Route path="/admin" element={   <EnhancedErrorBoundary name="Admin Page">     <AdminLayout />   </EnhancedErrorBoundary> }>
-       <Route path="agent" element={   <EnhancedErrorBoundary name="All Agents Page">     <Allagentpage />   </EnhancedErrorBoundary> } />
-       <Route path="addagent" element={   <EnhancedErrorBoundary name="All Agents Page">     <Addagent />   </EnhancedErrorBoundary> } />
-       <Route path="editagent/:id" element={   <EnhancedErrorBoundary name="All Agents Page">     <Editagent />   </EnhancedErrorBoundary> } />
-       <Route path="adminrent" element={   <EnhancedErrorBoundary name="All Agents Page">     <Adminrent />   </EnhancedErrorBoundary> } />
-        <Route path="dashboard" element={   <EnhancedErrorBoundary name="Admin Dashboard Page">     <AdminDashboard />   </EnhancedErrorBoundary> } />
-        <Route path="user" element={   <EnhancedErrorBoundary name="All Agents Page">     <Userinfo />   </EnhancedErrorBoundary> } />
-     </Route>
-
+        {/* ================= Admin Routes ================= */}
+        <Route
+          path="/admin"
+          element={
+            <EnhancedErrorBoundary name="Admin Page">
+              {" "}
+              <AdminLayout />{" "}
+            </EnhancedErrorBoundary>
+          }
+        >
+          <Route
+            path="agent"
+            element={
+              <EnhancedErrorBoundary name="All Agents Page">
+                {" "}
+                <Allagentpage />{" "}
+              </EnhancedErrorBoundary>
+            }
+          />
+          <Route
+            path="addagent"
+            element={
+              <EnhancedErrorBoundary name="All Agents Page">
+                {" "}
+                <Addagent />{" "}
+              </EnhancedErrorBoundary>
+            }
+          />
+          <Route
+            path="editagent/:id"
+            element={
+              <EnhancedErrorBoundary name="All Agents Page">
+                {" "}
+                <Editagent />{" "}
+              </EnhancedErrorBoundary>
+            }
+          />
+          <Route
+            path="adminrent"
+            element={
+              <EnhancedErrorBoundary name="All Agents Page">
+                {" "}
+                <Adminrent />{" "}
+              </EnhancedErrorBoundary>
+            }
+          />
+          <Route
+            path="dashboard"
+            element={
+              <EnhancedErrorBoundary name="Admin Dashboard Page">
+                {" "}
+                <AdminDashboard />{" "}
+              </EnhancedErrorBoundary>
+            }
+          />
+          <Route
+            path="user"
+            element={
+              <EnhancedErrorBoundary name="All Agents Page">
+                {" "}
+                <Userinfo />{" "}
+              </EnhancedErrorBoundary>
+            }
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
