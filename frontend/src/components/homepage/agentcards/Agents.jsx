@@ -21,7 +21,6 @@ export default function Agents() {
         },
       })
       .then((res) => {
-        console.log("Agents Response:", res.data);
         setAgents(res.data.agents || []);
       })
       .catch((err) => console.error("Failed to fetch agents:", err));

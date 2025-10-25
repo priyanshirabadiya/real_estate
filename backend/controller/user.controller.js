@@ -10,6 +10,7 @@ exports.registerUser = async (req, res) => {
       email,
       isDelete: false,
     });
+
     if (existingUser) {
       return res
         .status(400)
@@ -36,7 +37,7 @@ exports.registerUser = async (req, res) => {
       { userID: newUser._id },
       process.env.JWT_SECREATE
     );
-    
+
     res.status(201).send({
       message: "User successfully registered",
       userName: newUser.userName,
@@ -45,6 +46,7 @@ exports.registerUser = async (req, res) => {
       _id: newUser._id,
       email: newUser.email,
       password: newUser.password,
+      role: newUser.role,
       bio: newUser.bio,
       image: newUser.image || null,
       accessToken,
@@ -57,10 +59,8 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email, isDelete: false });
-    console.log("login user is:", user);
-
+    console.log("user is:", user);
     if (!user) {
-      // return res.send({ message: MESSAGES.USER_NOT_FOUND });
       return res
         .status(404)
         .send({ message: "Incorrect email ID or password" });
@@ -71,8 +71,6 @@ exports.loginUser = async (req, res) => {
       user.password
     );
 
-    console.log("comparepassword is:", comparepassword);
-
     if (!comparepassword) {
       return res
         .status(404)
@@ -80,7 +78,7 @@ exports.loginUser = async (req, res) => {
     }
 
     let token = await jwt.sign({ userID: user._id }, process.env.JWT_SECREATE);
-    console.log("token of login is:", token);
+
     return res.status(200).send({
       message: "User logged in successfully",
       accessToken: token,
@@ -91,10 +89,10 @@ exports.loginUser = async (req, res) => {
       email: user.email,
       bio: user.bio,
       image: user.image,
+      role: user.role,
     });
   } catch (error) {
     console.log(error);
-    // res.status(500).send({ message: MESSAGES.INTERNAL_SERVER_ERROR });
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
@@ -105,7 +103,6 @@ exports.getAll = async (req, res) => {
     res.send(allusers);
   } catch (error) {
     console.log(error);
-    // res.status(500).send({ message: MESSAGES.INTERNAL_SERVER_ERROR });
     res.status(500).send({ message: "Internal Server Error" });
   }
 };

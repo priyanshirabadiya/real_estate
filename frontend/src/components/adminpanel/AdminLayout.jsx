@@ -10,10 +10,9 @@ const AdminLayout = () => {
       <AdminHeader />
       <div style={{ display: "flex" }}>
         <Adminsidebar />
-     
-         <main className="width_manage" >
-             <Outlet/>
-        </main> 
+        <main className="width_manage">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

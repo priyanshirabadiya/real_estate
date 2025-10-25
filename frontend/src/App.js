@@ -1,23 +1,25 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import EnhancedErrorBoundary from "./EnhancedErrorBoundary";
+import ProtectedRoute from "./components/ProtectedRoute";
+// user pages
 import Home from "./pages/Home";
 import ProductDetail from "./pages/Productdetail";
-import CategoryDetail from "../src/pages/CategoryDetail";
-import Agentsprofile from "../src/pages/Agentsprofile";
-import About from "../src/pages/About";
+import CategoryDetail from "./pages/CategoryDetail";
+import Agentsprofile from "./pages/Agentsprofile";
+import About from "./pages/About";
 import ForRent from "./pages/ForRent";
 import Ouragents from "./pages/Ouragents";
-import Cart from "../src/pages/Cart";
+import Cart from "./pages/Cart";
 import Wish from "./pages/Wish";
 import PreviewPage from "./pages/PreviewPage";
-import Contact from "../src/pages/Contact";
-import Blog from "../src/pages/Blog";
-import DuplicateError from "../src/components/blog/BlogDetails/commentpart/DuplicateError";
-import BlogDetailsPage from "../src/pages/BlogDetailsPage";
-import LoginPage from "../src/components/login_and_signup/LoginPage";
-import SignupPage from "../src/components/login_and_signup/SignupPage";
+import Contact from "./pages/Contact";
+import Blog from "./pages/Blog";
+import DuplicateError from "./components/blog/BlogDetails/commentpart/DuplicateError";
+import BlogDetailsPage from "./pages/BlogDetailsPage";
+import LoginPage from "./components/login_and_signup/LoginPage";
+import SignupPage from "./components/login_and_signup/SignupPage";
+// admin panel
 import AdminLayout from "./components/adminpanel/AdminLayout";
 import Allagentpage from "./components/adminpanel/agents/Allagentpage";
 import Addagent from "./components/adminpanel/agents/Addagent";
@@ -25,206 +27,102 @@ import Editagent from "./components/adminpanel/agents/Editagent";
 import Adminrent from "./components/adminpanel/for rent admin/Adminrent";
 import AdminDashboard from "./components/adminpanel/dashboard/AdminDashboard ";
 import Userinfo from "./components/adminpanel/users/Userinfo";
+import PublicRoute from "./components/PublicRoute";
+
+const withProtection = (Component, allowedRoles) => {
+  return (
+    <ProtectedRoute
+      element={() => (
+        <EnhancedErrorBoundary name={Component.name}>
+          <Component />
+        </EnhancedErrorBoundary>
+      )}
+      allowedRoles={allowedRoles}
+    />
+  );
+};
+
+const withPublic = (Component) => {
+  return (
+    <PublicRoute
+      element={() => (
+        <EnhancedErrorBoundary name={Component.name}>
+          <Component />
+        </EnhancedErrorBoundary>
+      )}
+    />
+  );
+};
 
 export default function App() {
   return (
     <BrowserRouter>
-    {/* users routes */}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <EnhancedErrorBoundary name="Home Page">
-              <Home />
-            </EnhancedErrorBoundary>
-          }
-        />
+        {/* Public routes */}
+        <Route path="/login" element={withPublic(LoginPage)} />
+        <Route path="/register" element={withPublic(SignupPage)} />
+
+        {/* Protected user routes */}
+        <Route path="/" element={withProtection(Home, ["user"])} />
         <Route
           path="/product"
-          element={
-            <EnhancedErrorBoundary name="Product Detail Page">
-              <ProductDetail />
-            </EnhancedErrorBoundary>
-          }
+          element={withProtection(ProductDetail, ["user"])}
         />
+
         <Route
           path="/category"
-          element={
-            <EnhancedErrorBoundary name="Category Detail Page">
-              <CategoryDetail />
-            </EnhancedErrorBoundary>
-          }
+          element={withProtection(CategoryDetail, ["user"])}
         />
         <Route
           path="/agents"
-          element={
-            <EnhancedErrorBoundary name="Agents Profile Page">
-              <Agentsprofile />
-            </EnhancedErrorBoundary>
-          }
+          element={withProtection(Agentsprofile, ["user"])}
         />
-        <Route
-          path="/about"
-          element={
-            <EnhancedErrorBoundary name="about Page">
-              <About />
-            </EnhancedErrorBoundary>
-          }
-        />
-        <Route
-          path="/forrent"
-          element={
-            <EnhancedErrorBoundary name="For Rent Page">
-              <ForRent />
-            </EnhancedErrorBoundary>
-          }
-        />
+        <Route path="/about" element={withProtection(About, ["user"])} />
+        <Route path="/forrent" element={withProtection(ForRent, ["user"])} />
         <Route
           path="/ouragents"
-          element={
-            <EnhancedErrorBoundary name="our agents page">
-              <Ouragents />
-            </EnhancedErrorBoundary>
-          }
+          element={withProtection(Ouragents, ["user"])}
         />
-        <Route
-          path="/addtocart"
-          element={
-            <EnhancedErrorBoundary name="cart page">
-              <Cart />
-            </EnhancedErrorBoundary>
-          }
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <EnhancedErrorBoundary name="wishlist page">
-              <Wish />
-            </EnhancedErrorBoundary>
-          }
-        />
+        <Route path="/addtocart" element={withProtection(Cart, ["user"])} />
+        <Route path="/wishlist" element={withProtection(Wish, ["user"])} />
         <Route
           path="/previewpage"
-          element={
-            <EnhancedErrorBoundary name="preview page">
-              <PreviewPage />
-            </EnhancedErrorBoundary>
-          }
+          element={withProtection(PreviewPage, ["user"])}
         />
-        <Route
-          path="/contact"
-          element={
-            <EnhancedErrorBoundary name="contact page">
-              <Contact />
-            </EnhancedErrorBoundary>
-          }
-        />
-        <Route
-          path="/BlogPage"
-          element={
-            <EnhancedErrorBoundary name="Blog Page">
-              <Blog />
-            </EnhancedErrorBoundary>
-          }
-        />
+        <Route path="/contact" element={withProtection(Contact, ["user"])} />
+        <Route path="/BlogPage" element={withProtection(Blog, ["user"])} />
         <Route
           path="/blog/:id"
-          element={
-            <EnhancedErrorBoundary name="blog Detail Page">
-              <BlogDetailsPage />
-            </EnhancedErrorBoundary>
-          }
+          element={withProtection(BlogDetailsPage, ["user"])}
         />
         <Route
           path="/commentpart/duplicate-error"
-          element={
-            <EnhancedErrorBoundary name="Duplicate Error Page">
-              <DuplicateError />
-            </EnhancedErrorBoundary>
-          }
-        />
-        <Route
-          path="/signupPage"
-          element={
-            <EnhancedErrorBoundary name="signup Page">
-              <SignupPage />
-            </EnhancedErrorBoundary>
-          }
+          element={withProtection(DuplicateError, ["user"])}
         />
 
-        <Route
-          path="/LoginPage"
-          element={
-            <EnhancedErrorBoundary name="login Page">
-              <LoginPage />
-            </EnhancedErrorBoundary>
-          }
-        />
-
-        {/* ================= Admin Routes ================= */}
-        <Route
-          path="/admin"
-          element={
-            <EnhancedErrorBoundary name="Admin Page">
-              {" "}
-              <AdminLayout />{" "}
-            </EnhancedErrorBoundary>
-          }
-        >
+        {/* Admin routes */}
+        <Route path="/admin" element={withProtection(AdminLayout, ["admin"])}>
           <Route
             path="agent"
-            element={
-              <EnhancedErrorBoundary name="All Agents Page">
-                {" "}
-                <Allagentpage />{" "}
-              </EnhancedErrorBoundary>
-            }
+            element={withProtection(Allagentpage, ["admin"])}
           />
           <Route
             path="addagent"
-            element={
-              <EnhancedErrorBoundary name="All Agents Page">
-                {" "}
-                <Addagent />{" "}
-              </EnhancedErrorBoundary>
-            }
+            element={withProtection(Addagent, ["admin"])}
           />
           <Route
             path="editagent/:id"
-            element={
-              <EnhancedErrorBoundary name="All Agents Page">
-                {" "}
-                <Editagent />{" "}
-              </EnhancedErrorBoundary>
-            }
+            element={withProtection(Editagent, ["admin"])}
           />
           <Route
             path="adminrent"
-            element={
-              <EnhancedErrorBoundary name="All Agents Page">
-                {" "}
-                <Adminrent />{" "}
-              </EnhancedErrorBoundary>
-            }
+            element={withProtection(Adminrent, ["admin"])}
           />
           <Route
             path="dashboard"
-            element={
-              <EnhancedErrorBoundary name="Admin Dashboard Page">
-                {" "}
-                <AdminDashboard />{" "}
-              </EnhancedErrorBoundary>
-            }
+            element={withProtection(AdminDashboard, ["admin"])}
           />
-          <Route
-            path="user"
-            element={
-              <EnhancedErrorBoundary name="All Agents Page">
-                {" "}
-                <Userinfo />{" "}
-              </EnhancedErrorBoundary>
-            }
-          />
+          <Route path="user" element={withProtection(Userinfo, ["admin"])} />
         </Route>
       </Routes>
     </BrowserRouter>

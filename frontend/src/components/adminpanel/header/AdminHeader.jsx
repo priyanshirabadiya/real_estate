@@ -14,10 +14,11 @@ const AdminHeader = () => {
     try {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("role");
     } catch (e) {
       console.error("Error during logout:", e);
     }
-    navigate("/LoginPage");
+    navigate("/login");
   };
 
   return (

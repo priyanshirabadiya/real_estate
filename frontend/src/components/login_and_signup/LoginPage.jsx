@@ -38,55 +38,53 @@ const RealnestLogin = () => {
     return Object.keys(formErrors).length === 0;
   };
 
-const handleSubmit = async () => {
-  if (validateForm()) {
-    try {
-      const response = await fetch("http://localhost:1155/user/loginUser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      console.log("Login response:", data);
-
-      if (response.ok) {
-        localStorage.setItem("token", data.accessToken);
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...data, role })
-        );
-
-        toast.success("Login successful! Redirecting...", {
-          position: "top-right",
-          autoClose: 2000,
-          theme: "colored",
+  const handleSubmit = async () => {
+    if (validateForm()) {
+      try {
+        const response = await fetch("http://localhost:1155/user/loginUser", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
         });
 
-        setTimeout(() => {
-          if (role === "admin") {
-            navigate("/admin/dashboard");
-          } else {
-            navigate("/");
-          }
-        }, 2000);
-      } else {
-        toast.error(data.message || "Invalid credentials", {
+        const data = await response.json();
+        console.log("Login response:", data);
+
+        if (response.ok) {
+          localStorage.setItem("token", data.accessToken);
+          localStorage.setItem("user", JSON.stringify({ ...data, role }));
+          localStorage.setItem("role", data.role);
+
+          toast.success("Login successful! Redirecting...", {
+            position: "top-right",
+            autoClose: 2000,
+            theme: "colored",
+          });
+
+          setTimeout(() => {
+            if (role === "admin") {
+              navigate("/admin/dashboard");
+            } else {
+              navigate("/");
+            }
+          }, 2000);
+        } else {
+          toast.error(data.message || "Invalid credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        }
+      } catch (error) {
+        console.error("Login Error:", error);
+        toast.error("Something went wrong. Please try again later.", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
       }
-    } catch (error) {
-      console.error("Login Error:", error);
-      toast.error("Something went wrong. Please try again later.", {
-        position: "top-right",
-        autoClose: 3000,
-        theme: "colored",
-      });
     }
-  }
-};
+  };
 
   const handleGoogleLogin = () => {
     window.location.href =
@@ -129,7 +127,7 @@ const handleSubmit = async () => {
               <div>
                 <button
                   className="sign-in-btn-6789"
-                  onClick={() => navigate("/signupPage")}
+                  onClick={() => navigate("/register")}
                 >
                   Sign In
                 </button>
@@ -297,7 +295,7 @@ const handleSubmit = async () => {
                       cursor: "pointer",
                       textDecoration: "underline",
                     }}
-                    onClick={() => navigate("/signupPage")}
+                    onClick={() => navigate("/register")}
                   >
                     Register
                   </span>

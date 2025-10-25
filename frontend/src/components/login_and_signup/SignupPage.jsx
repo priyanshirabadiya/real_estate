@@ -11,6 +11,7 @@ const RealnestSignup = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    role: "user",
   });
 
   const [errors, setErrors] = useState({});
@@ -72,6 +73,7 @@ const RealnestSignup = () => {
               userName: formData.fullname.replace(/\s+/g, "").toLowerCase(),
               email: formData.email,
               password: formData.password,
+              role: "user",
             }),
           }
         );
@@ -87,7 +89,7 @@ const RealnestSignup = () => {
           });
 
           setTimeout(() => {
-            navigate("/LoginPage");
+            navigate("/login");
           }, 2500);
         } else {
           toast.error(data.message || "Registration failed.", {
@@ -126,7 +128,7 @@ const RealnestSignup = () => {
             <div className="right-section2-6789">
               <button
                 className="log-in-btn-6789"
-                onClick={() => navigate("/LoginPage")}
+                onClick={() => navigate("/login")}
               >
                 Login
               </button>
@@ -254,7 +256,7 @@ const RealnestSignup = () => {
                     cursor: "pointer",
                     textDecoration: "underline",
                   }}
-                  onClick={() => navigate("/LoginPage")}
+                  onClick={() => navigate("/login")}
                 >
                   {" "}
                   login
