@@ -29,6 +29,7 @@ import Userinfo from "./components/adminpanel/users/Userinfo";
 export default function App() {
   return (
     <BrowserRouter>
+    {/* users routes */}
       <Routes>
         <Route
           path="/"
