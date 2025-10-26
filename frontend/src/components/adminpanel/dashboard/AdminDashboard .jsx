@@ -1,7 +1,6 @@
-import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import {PieChart,Pie,Cell,Legend,Tooltip,ResponsiveContainer,} from "recharts";
+import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
 import "./AdminDashboard .css";
 
 const AdminDashboard = () => {
@@ -20,7 +19,12 @@ const AdminDashboard = () => {
             Welcome to houzez Property Admin
           </p>
         </div>
-        <button className="btn  admin_refresh-btn">Refresh</button>
+        <button
+          className="btn admin_refresh-btn"
+          onClick={() => window.location.reload()}
+        >
+          Refresh
+        </button>
       </div>
 
       <div className="admin_total-properties-card mb-4">

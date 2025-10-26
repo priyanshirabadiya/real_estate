@@ -51,12 +51,7 @@ export default function AgentProfileCard() {
                 Relocation
               </p>
 
-              <div className="mt-3 unique-agent-actions">
-                <button className="unique-agent-btn-green me-2">
-                  Send Email
-                </button>
-                <button className="unique-agent-btn-outline-green">Call</button>
-              </div>
+           
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ const userRoutes = require("./Routes/user.routes");
 const cardRoutes = require("./Routes/cards.routes");
 const blogRoutes = require("./Routes/blog.routes");
 const agentRoutes = require("./Routes/agents.routes");
+const serviceRoutes = require("./Routes/service.routes");
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -32,6 +33,8 @@ app.use("/cards", cardRoutes);
 app.use("/user", userRoutes);
 app.use("/blogs", blogRoutes);
 app.use("/agents", agentRoutes);
+app.use("/services", serviceRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to server</h1>");

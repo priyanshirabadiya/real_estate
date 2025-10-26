@@ -4,13 +4,30 @@ import "./Service.css";
 
 export default function Services() {
   const [services, setServices] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:1530/services")
-      .then((res) => setServices(res.data))
-      .catch((err) => console.error("Failed to fetch services:", err));
-  }, []);
+    const fetchServices = async () => {
+      try {
+        const res = await axios.get("http://localhost:1155/services/getall", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("Fetched services:", res.data);
+        setServices(res.data.services || []);
+      } catch (error) {
+        console.error("Failed to fetch services:", error);
+      }
+    };
+
+    if (token) {
+      fetchServices();
+    } else {
+      console.warn("No token found in localStorage");
+    }
+  }, [token]);
+
   return (
     <section className="services-section py-5">
       <div className="container">
@@ -19,23 +36,32 @@ export default function Services() {
         </div>
 
         <div className="row">
-          {services?.map((service) => (
-            <div className="col-lg-4 col-md-6 mb-4" key={service?.id}>
-              <div className="service-item d-flex">
-                <div className="service-icon">
-                  <img
-                    src={service?.image}
-                    alt={service?.title}
-                    className="icon-image"
-                  />
-                </div>
-                <div className="service-content">
-                  <h5 className="service-title">{service?.title}</h5>
-                  <p className="service-description">{service?.description}</p>
+          {services.length > 0 ? (
+            services.map((service) => (
+              <div
+                className="col-lg-4 col-md-6 mb-4"
+                key={service._id || service.id}
+              >
+                <div className="service-item d-flex">
+                  <div className="service-icon">
+                    <img
+                      src={service?.image}
+                      alt={service?.title}
+                      className="icon-image"
+                    />
+                  </div>
+                  <div className="service-content">
+                    <h5 className="service-title">{service?.title}</h5>
+                    <p className="service-description">
+                      {service?.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-muted">No services available.</p>
+          )}
         </div>
       </div>
     </section>

@@ -2,20 +2,17 @@ const mongoose = require("mongoose");
 
 const serviceSchema = mongoose.Schema(
   {
-    name: {
+    id: {
       type: String,
-      required: true,
+    },
+    title: {
+      data: String,
     },
     description: {
       type: String,
     },
-    icon: {
-      data: Buffer,
-      contentType: String,
-    },
-    isDelete: {
-      type: Boolean,
-      default: false,
+    image: {
+      type: String,
     },
   },
   {

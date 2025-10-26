@@ -7,13 +7,30 @@ import "./Aboutservice.css";
 
 export default function Aboutservice() {
   const [services, setServices] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:1530/services")
-      .then((res) => setServices(res.data))
-      .catch((err) => console.error("Failed to fetch services:", err));
-  }, []);
+    const fetchServices = async () => {
+      try {
+        const res = await axios.get("http://localhost:1155/services/getall", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("Fetched services 22:", res.data);
+        setServices(res.data.services || []);
+      } catch (error) {
+        console.error("Failed to fetch services:", error);
+      }
+    };
+
+    if (token) {
+      fetchServices();
+    } else {
+      console.warn("No token found in localStorage");
+    }
+  }, [token]);
+
   useEffect(() => {
     AOS.init({
       duration: 500,
@@ -34,30 +51,35 @@ export default function Aboutservice() {
 
       <div className="aboutus-services-container container" data-aos="zoom-in">
         <div className="row">
-          {services?.map((service) => (
-            <div
-              className="aboutus-service-col col-lg-4 col-md-6 mb-4"
-              key={service?.id}
-            >
-              <div className="aboutus-service-item d-flex">
-                <div className="aboutus-service-icon">
-                  <img
-                    src={service?.image}
-                    alt={service?.title}
-                    className="aboutus-icon-image"
-                  />
-                </div>
-                <div className="aboutus-service-content">
-                  <h5 className="aboutus-service-title">{service?.title}</h5>
-                  <p className="aboutus-service-description">
-                    {service?.description}
-                  </p>
+          {services.length > 0 ? (
+            services.map((service) => (
+              <div
+                className="aboutus-service-col col-lg-4 col-md-6 mb-4"
+                key={service?.id}
+              >
+                <div className="aboutus-service-item d-flex">
+                  <div className="aboutus-service-icon">
+                    <img
+                      src={service?.image}
+                      alt={service?.title}
+                      className="aboutus-icon-image"
+                    />
+                  </div>
+                  <div className="aboutus-service-content">
+                    <h5 className="aboutus-service-title">{service?.title}</h5>
+                    <p className="aboutus-service-description">
+                      {service?.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-center text-muted">No services available.</p>
+          )}
         </div>
       </div>
+
       <Meetourteam />
     </section>
   );
