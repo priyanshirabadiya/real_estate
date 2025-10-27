@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import "./ContactForm.css";
+import axios from "axios";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ function ContactForm() {
     return regex.test(name);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
 
@@ -58,8 +59,15 @@ function ContactForm() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      setSubmitted(true);
-      setFormData({ firstName: "", lastName: "", email: "", message: "" });
+      try {
+        await axios.post("http://localhost:1155/contacts/add", formData);
+        setSubmitted(true);
+        setFormData({ firstName: "", lastName: "", email: "", message: "" });
+      } catch (err) {
+        console.error("Error submitting contact form:", err);
+        setSubmitted(false);
+        alert("Something went wrong. Please try again.");
+      }
     } else {
       setSubmitted(false);
     }

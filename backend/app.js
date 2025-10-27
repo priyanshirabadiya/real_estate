@@ -11,6 +11,7 @@ const cardRoutes = require("./Routes/cards.routes");
 const blogRoutes = require("./Routes/blog.routes");
 const agentRoutes = require("./Routes/agents.routes");
 const serviceRoutes = require("./Routes/service.routes");
+const contactRoutes = require("./Routes/contact.routes");
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -34,6 +35,7 @@ app.use("/user", userRoutes);
 app.use("/blogs", blogRoutes);
 app.use("/agents", agentRoutes);
 app.use("/services", serviceRoutes);
+app.use("/contacts", contactRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to server</h1>");

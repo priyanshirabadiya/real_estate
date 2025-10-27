@@ -30,6 +30,7 @@ import Adminrent from "./components/adminpanel/for rent admin/Adminrent";
 import AdminDashboard from "./components/adminpanel/dashboard/AdminDashboard ";
 import Userinfo from "./components/adminpanel/users/Userinfo";
 import PublicRoute from "./components/PublicRoute";
+import ContactUs from "./components/adminpanel/contactus/ContactUs";
 
 const withProtection = (Component, allowedRoles) => {
   return (
@@ -125,6 +126,10 @@ export default function App() {
             element={withProtection(AdminDashboard, ["admin"])}
           />
           <Route path="user" element={withProtection(Userinfo, ["admin"])} />
+          <Route
+            path="contact"
+            element={withProtection(ContactUs, ["admin"])}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

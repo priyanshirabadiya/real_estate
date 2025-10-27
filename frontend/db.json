@@ -722,18 +722,6 @@
       "location": "Houston, USA"
     },
     {
-      "id": "5",
-      "image": "/images/agent-5.jpg",
-      "agentname": "Emma Johnson",
-      "cname": "Senior Agent at Dream Homes Realty",
-      "office": "4561237890",
-      "mobile": "9876543210",
-      "fax": "6543219870",
-      "email": "emma@houzez.com",
-      "description": "Guide clients through buying and selling process Guide clients carefully",
-      "location": "San Francisco, USA"
-    },
-    {
       "id": "6",
       "image": "/images/agent-6.jpg",
       "agentname": "Olivia Parker",
@@ -744,6 +732,18 @@
       "email": "olivia@skyline.com",
       "description": "Dedicated to helping clients buy and sell properties smoothly with expert advice and personalized support.",
       "location": "Los Angeles, USA"
+    },
+    {
+      "id": "7",
+      "image": "blob:http://localhost:3000/c910ccf3-b1ab-4b6d-ba8d-6ebedfe2f216",
+      "agentname": "hello",
+      "cname": "sefsdhjk",
+      "office": "1234567897",
+      "mobile": "1234567897",
+      "fax": "7418529631",
+      "email": "sdf@gmail.com",
+      "location": "sdf",
+      "description": "sdfsdf"
     }
   ],
   "blogs": [

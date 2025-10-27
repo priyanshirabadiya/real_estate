@@ -24,8 +24,13 @@ const Addagent = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (files) {
-      setFormData({ ...formData, [name]: URL.createObjectURL(files[0]) });
+
+    if (files && files[0]) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, [name]: reader.result });
+      };
+      reader.readAsDataURL(files[0]);
     } else {
       setFormData({ ...formData, [name]: value });
     }

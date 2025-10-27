@@ -49,6 +49,15 @@ const Adminsidebar = () => {
                 <span className="admin-menu-text mt-2">Users</span>
               </div>
             </li>
+            <li
+              className="admin-menu-item"
+              onClick={() => navigate("/admin/contactus")}
+            >
+              <div className="admin-menu-link">
+                <RiUserSettingsLine size={32} className="admin-menu-icon" />
+                <span className="admin-menu-text mt-2">Contact Us</span>
+              </div>
+            </li>
           </ul>
         </nav>
       </div>
