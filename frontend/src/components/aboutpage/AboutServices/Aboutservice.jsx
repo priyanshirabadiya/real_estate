@@ -17,7 +17,6 @@ export default function Aboutservice() {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("Fetched services 22:", res.data);
         setServices(res.data.services || []);
       } catch (error) {
         console.error("Failed to fetch services:", error);

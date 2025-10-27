@@ -674,7 +674,7 @@
   ],
   "ouragent": [
     {
-      "id": "1",
+      "id": "4",
       "image": "/images/agent-1.jpg",
       "agentname": "Michelle Ramirez",
       "cname": "Company Agent at Realtory Inc.",
@@ -686,7 +686,7 @@
       "location": "New York, USA"
     },
     {
-      "id": "2",
+      "id": "3",
       "image": "/images/agent-2.jpg",
       "agentname": "Brittany Watkins",
       "cname": "Company Agent at Smart Houses Inc.",
@@ -698,7 +698,7 @@
       "location": "Los Angeles, USA"
     },
     {
-      "id": "3",
+      "id": "2",
       "image": "/images/agent-4.jpg",
       "agentname": "Vincent Fuller",
       "cname": "Company Agent at Cool Houses Inc.",
@@ -710,7 +710,7 @@
       "location": "Chicago, USA"
     },
     {
-      "id": "4",
+      "id": "1",
       "image": "/images/agent-3 (1).jpg",
       "agentname": "Samuel Palmer",
       "cname": "Founder & CEO at Realty Properties Inc.",

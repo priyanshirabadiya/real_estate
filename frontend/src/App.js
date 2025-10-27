@@ -67,7 +67,7 @@ export default function App() {
         {/* Protected user routes */}
         <Route path="/" element={withProtection(Home, ["user"])} />
         <Route
-          path="/product"
+          path="/product/:id"
           element={withProtection(ProductDetail, ["user"])}
         />
 
@@ -76,7 +76,7 @@ export default function App() {
           element={withProtection(CategoryDetail, ["user"])}
         />
         <Route
-          path="/agents"
+          path="/agents/:id"
           element={withProtection(Agentsprofile, ["user"])}
         />
         <Route path="/about" element={withProtection(About, ["user"])} />
@@ -88,7 +88,7 @@ export default function App() {
         <Route path="/addtocart" element={withProtection(Cart, ["user"])} />
         <Route path="/wishlist" element={withProtection(Wish, ["user"])} />
         <Route
-          path="/previewpage"
+          path="/previewpage/:id"
           element={withProtection(PreviewPage, ["user"])}
         />
         <Route path="/contact" element={withProtection(Contact, ["user"])} />

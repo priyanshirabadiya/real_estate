@@ -4,7 +4,7 @@ import { RiHomeLine } from "react-icons/ri";
 import { CiLocationOn } from "react-icons/ci";
 import "./PropertyHeader.css";
 
-export default function PropertyHeader() {
+export default function PropertyHeader({ property }) {
   const navigate = useNavigate();
   return (
     <div className="container py-4">
@@ -17,29 +17,28 @@ export default function PropertyHeader() {
           >
             <RiHomeLine className="me-1 text-dark" /> Home
           </li>
-
           <li
             className="breadcrumb-item header-breadcrumbactive"
             aria-current="page"
           >
-            Modern apartment on the bay
+            {property?.title || "Property Details"}
           </li>
         </ol>
       </nav>
 
       <div className="d-flex justify-content-between align-items-start flex-wrap">
         <div>
-          <h2 className="header  mb-2">Modern Apartment On The Bay</h2>
+          <h2 className="header mb-2">{property?.title}</h2>
           <p className="address text-muted mb-3">
             <CiLocationOn className="me-1" size={20} />
-            3000 Florida Ave, Miami, FL 33133, USA
+            {property?.location || "No address provided"}
           </p>
         </div>
 
         <div className="text-end">
-         
           <h3 className="fw-bold price-main">
-            $4,500<span className=" price-main-1 fw-normal">/mo</span>
+            ${property?.price}
+            <span className="price-main-1 fw-normal">/mo</span>
           </h3>
         </div>
       </div>

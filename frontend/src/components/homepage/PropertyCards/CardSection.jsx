@@ -59,9 +59,7 @@ function Card({ card }) {
   const prevImage = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentIndex((prev) =>
-      prev === 0 ? imageList.length - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => (prev === 0 ? imageList.length - 1 : prev - 1));
   };
 
   const handleAddToCart = () => {
@@ -129,7 +127,7 @@ function Card({ card }) {
           src={currentImgSrc}
           className="w-100 frc-img"
           alt={card?.title}
-          onClick={() => navigate("/product")}
+          onClick={() => navigate(`/product/${card.id}`)}
         />
 
         <button
@@ -148,7 +146,7 @@ function Card({ card }) {
         <div className="position-absolute bottom-0 end-0 p-2 d-flex gap-2">
           <button
             className="frc-icon-btn"
-            onClick={() => navigate("/previewpage")}
+            onClick={() => navigate(`/previewpage/${card.id}`)}
           >
             <BsArrowsAngleExpand />
           </button>

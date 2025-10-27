@@ -14,7 +14,6 @@ export default function ForRentCard({ filters }) {
   const [currentPage, setCurrentPage] = useState(1);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  console.log("filteredCards=", filteredCards);
   // Fetch all cards once
   useEffect(() => {
     const fetchFilteredCards = async () => {
@@ -22,7 +21,6 @@ export default function ForRentCard({ filters }) {
         const res = await axios.get(`http://localhost:1155/cards/getall`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("Fetched cards:", res.data.cards);
         setCards(res.data.cards || []);
         setFilteredCards(res.data.cards || []);
       } catch (err) {
@@ -35,11 +33,8 @@ export default function ForRentCard({ filters }) {
   // Apply filters when filters change
   useEffect(() => {
     let filtered = cards;
-    console.log("filtered", filtered);
-    console.log("filters", filters);
 
     if (filters.keyword) {
-      console.log("enter1", filters.keyword);
       const kw = filters.keyword.toLowerCase();
       filtered = filtered.filter(
         (c) =>
@@ -55,42 +50,7 @@ export default function ForRentCard({ filters }) {
       );
     }
 
-    // if (filters.area)
-    //   filtered = filtered.filter(
-    //     (c) => c.area?.toLowerCase() === filters.area.toLowerCase()
-    //   );
-
-    // if (filters.rentStatus)
-    //   filtered = filtered.filter(
-    //     (c) => c.status?.toLowerCase() === filters.rentStatus.toLowerCase()
-    //   );
-    // if (filters.type)
-    //   filtered = filtered.filter(
-    //     (c) => c.type?.toLowerCase() === filters.type.toLowerCase()
-    //   );
-    // if (filters.bedrooms)
-    //   filtered = filtered.filter(
-    //     (c) => String(c.bedrooms) === String(filters.bedrooms)
-    //   );
-    // if (filters.bathrooms)
-    //   filtered = filtered.filter(
-    //     (c) => String(c.bathrooms) === String(filters.bathrooms)
-    //   );
-    // if (filters.minPrice)
-    //   filtered = filtered.filter(
-    //     (c) =>
-    //       parseFloat(c.price) >= parseFloat(filters.minPrice.replace(/\$/g, ""))
-    //   );
-    // if (filters.maxPrice)
-    //   filtered = filtered.filter(
-    //     (c) =>
-    //       parseFloat(c.price) <= parseFloat(filters.maxPrice.replace(/\$/g, ""))
-    //   );
-
     setFilteredCards(filtered);
-    console.log("setting filteredCards to:", filtered);
-
-    // setCurrentPage(1);
   }, [filters, cards]);
 
   useEffect(() => {
@@ -181,7 +141,7 @@ function Card({ card }) {
           src={currentImgSrc}
           className="w-100 ci"
           alt={card?.title}
-          onClick={() => navigate("/product")}
+          onClick={() => navigate(`/product/${card.id}`)}
         />
 
         <button

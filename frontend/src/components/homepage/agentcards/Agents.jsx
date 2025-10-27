@@ -7,7 +7,7 @@ export default function Agents() {
   const [agents, setAgents] = useState([]);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  
+
   useEffect(() => {
     if (!token) {
       console.error("No token found in localStorage");
@@ -47,7 +47,7 @@ export default function Agents() {
                     style={{
                       backgroundImage: `url(${agent?.image})`,
                     }}
-                    onClick={() => navigate("/agents")}
+                    onClick={() => navigate(`/agents/${agent.id}`)}
                   />
                   {agent?.verified && (
                     <div className="verified-badge">
@@ -60,13 +60,12 @@ export default function Agents() {
                   <h5 className="agent-name">{agent?.name}</h5>
                   <p className="agent-title">{agent?.title}</p>
                   <p className="agent-description">{agent?.description}</p>
-                  <a
-                    href="/#"
+                  <button
+                    onClick={() => navigate(`/agents/${agent.id}`)}
                     className="view-profile-link"
-                    onClick={(e) => e.preventDefault()}
                   >
                     View Profile
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

@@ -150,7 +150,7 @@ export default function Agentmain() {
                       </div>
                       <h5
                         className="mb-0 agentx-name"
-                        onClick={() => navigate("/agents")}
+                        onClick={() => navigate(`/agents/${agent.id}`)}
                         role="button"
                         style={{ cursor: "pointer" }}
                         title="View Agent Profile"
@@ -239,10 +239,7 @@ export default function Agentmain() {
             </div>
 
             <div className="card listing-card ">
-              <div
-                className="img-container position-relative"
-                onClick={() => navigate("/product")}
-              >
+              <div className="img-container position-relative">
                 <img
                   src="/images/card1-1.jpg"
                   alt="apartment"
