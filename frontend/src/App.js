@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import EnhancedErrorBoundary from "./EnhancedErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // user pages
 import Home from "./pages/Home";
 import ProductDetail from "./pages/Productdetail";

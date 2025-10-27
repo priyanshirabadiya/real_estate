@@ -35,7 +35,6 @@ app.use("/blogs", blogRoutes);
 app.use("/agents", agentRoutes);
 app.use("/services", serviceRoutes);
 
-
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to server</h1>");
 });
