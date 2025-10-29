@@ -139,14 +139,14 @@ const Review = () => {
                         <p className="review-text">{rev.text}</p>
                       </div>
 
-                      <div className="like-dislike text-end mt-auto">
+                      {/* <div className="like-dislike text-end mt-auto">
                         <span className="like me-3">
                           <BsHandThumbsUp size={20} /> {rev.likes}
                         </span>
                         <span className="dislike">
                           <BsHandThumbsDown size={20} /> {rev.dislikes}
                         </span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}

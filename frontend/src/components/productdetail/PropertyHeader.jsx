@@ -29,10 +29,10 @@ export default function PropertyHeader({ property }) {
       <div className="d-flex justify-content-between align-items-start flex-wrap">
         <div>
           <h2 className="header mb-2">{property?.title}</h2>
-          <p className="address text-muted mb-3">
+          {/* <p className="address text-muted mb-3">
             <CiLocationOn className="me-1" size={20} />
             {property?.location || "No address provided"}
-          </p>
+          </p> */}
         </div>
 
         <div className="text-end">

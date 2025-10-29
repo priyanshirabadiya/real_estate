@@ -17,32 +17,24 @@ export default function Leftbar() {
           <ul className="sidebar-list">
             <li
               className="d-flex align-items-center"
-              onClick={() => navigate("/category")}
-              style={{ cursor: "pointer" }}
             >
               <IoIosArrowForward />
               Apartment <span>(205)</span>
             </li>
             <li
               className="d-flex align-items-center"
-              onClick={() => navigate("/category")}
-              style={{ cursor: "pointer" }}
             >
               <IoIosArrowForward />
               Single Family Home <span>(150)</span>
             </li>
             <li
               className="d-flex align-items-center"
-              onClick={() => navigate("/category")}
-              style={{ cursor: "pointer" }}
             >
               <IoIosArrowForward />
               Villa <span>(35)</span>
             </li>
             <li
               className="d-flex align-items-center"
-              onClick={() => navigate("/category")}
-              style={{ cursor: "pointer" }}
             >
               <IoIosArrowForward />
               Loft <span>(20)</span>

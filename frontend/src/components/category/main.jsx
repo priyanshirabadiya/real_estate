@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { RiHomeLine } from "react-icons/ri";
 import { BsArrowsAngleExpand } from "react-icons/bs";
@@ -15,13 +15,23 @@ import "./main.css";
 
 export default function Main() {
   const [cards, setCards] = useState([]);
+  const [locationTitle, setLocationTitle] = useState(""); 
   const navigate = useNavigate();
+  const { id } = useParams();
   useEffect(() => {
     axios
       .get("http://localhost:1530/cards")
       .then((res) => setCards(res.data))
       .catch((err) => console.error("Error fetching cards:", err));
   }, []);
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`http://localhost:1530/featuredCards/${id}`)
+        .then((res) => setLocationTitle(res.data.title))
+        .catch((err) => console.error("Error fetching location title:", err));
+    }
+  }, [id]);
   const visibleCards = cards?.slice(15, 24);
   return (
     <div className="page-wrapper">
@@ -33,9 +43,11 @@ export default function Main() {
               Home
             </span>
             <span>{"/"}</span>
-            <span>New York</span>
+             <span>{locationTitle || "Loading..."}</span>
           </div>
-          <h2 className="page-title mt-2 mb-4">New York</h2>
+         <h2 className="page-title mt-2 mb-4">
+            {locationTitle || "Loading..."}
+          </h2>
         </div>
 
         <div className="row">
@@ -46,7 +58,7 @@ export default function Main() {
           <div className="col-lg-9">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h5 style={{ fontFamily: "Dosis" }}>
-                {visibleCards.length} Properties
+                 Properties
               </h5>
             </div>
 

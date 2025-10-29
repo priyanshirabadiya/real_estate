@@ -74,7 +74,7 @@ const Preview = () => {
             <span className="preview-status">FOR RENT</span>
             <h3 className="preview-title">{property.title}</h3>
             <p className="preview-location border-bottom pb-3">
-              <IoLocationOutline size={20} /> {property.location || "Unknown"}
+              {/* <IoLocationOutline size={20} /> {property.location || "Unknown"} */}
             </p>
 
             <h4 className="preview-price">${property.price}</h4>

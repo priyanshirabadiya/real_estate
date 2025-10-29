@@ -99,7 +99,7 @@ const Editagent = () => {
       <div className="row justify-content-center">
         <div className="col-lg-10 col-md-12">
           <div className="mb-4 add-agent-path d-flex align-items-center">
-            <span className="add-span-main" style={{ cursor: "pointer" }}>
+            <span className="add-span-main" onClick={() => navigate("/admin/agent")} style={{ cursor: "pointer" }}>
               Agents
             </span>
             <span className="add-span">/Edit Agent</span>

@@ -3,6 +3,7 @@ import { TfiHome } from "react-icons/tfi";
 import { FiUsers, FiLayers } from "react-icons/fi";
 import { TbLayoutDashboard } from "react-icons/tb";
 import { RiUserSettingsLine } from "react-icons/ri";
+import { AiOutlineContacts } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import "./AdminHeader.css";
 import { IoMdLogIn } from "react-icons/io";
@@ -109,6 +110,15 @@ const AdminHeader = () => {
                     <span className="admin-menu-text mt-2">Users</span>
                   </div>
                 </li>
+                <li
+                              className="admin-menu-item"
+                              onClick={() => navigate("/admin/contact")}
+                            >
+                              <div className="admin-menu-link">
+                                <AiOutlineContacts size={32} className="admin-menu-icon" />
+                                <span className="admin-menu-text mt-2">Contact Us</span>
+                              </div>
+                            </li>
               </ul>
             </nav>
           </div>

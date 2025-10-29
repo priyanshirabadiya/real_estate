@@ -73,7 +73,7 @@ export default function App() {
         />
 
         <Route
-          path="/category"
+          path="/category/:id"
           element={withProtection(CategoryDetail, ["user"])}
         />
         <Route

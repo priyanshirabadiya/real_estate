@@ -26,7 +26,8 @@ export default function Category() {
                     <img
                       src={element?.image}
                       alt={element?.title}
-                      onClick={() => navigate("/category")}
+                      onClick={() => navigate(`/category/${element.id}`)}
+
                       className="category-image"
                     />
                     <div className="position-absolute top-0 start-0 p-3 text-white">

@@ -121,6 +121,8 @@
   font-family: Dosis;
   transition: color 0.3s ease;
   margin-top: auto;
+  border:none;
+  background-color: white;
 }
 
 .view-profile-link:hover {

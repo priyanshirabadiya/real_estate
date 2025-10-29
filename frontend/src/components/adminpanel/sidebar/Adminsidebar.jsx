@@ -4,6 +4,7 @@ import { FiUsers, FiLayers } from "react-icons/fi";
 import { TfiHome } from "react-icons/tfi";
 import { TbLayoutDashboard } from "react-icons/tb";
 import { RiUserSettingsLine } from "react-icons/ri";
+import { AiOutlineContacts } from "react-icons/ai";
 import "./Adminsidebar.css";
 
 const Adminsidebar = () => {
@@ -51,10 +52,10 @@ const Adminsidebar = () => {
             </li>
             <li
               className="admin-menu-item"
-              onClick={() => navigate("/admin/contactus")}
+              onClick={() => navigate("/admin/contact")}
             >
               <div className="admin-menu-link">
-                <RiUserSettingsLine size={32} className="admin-menu-icon" />
+                <AiOutlineContacts size={32} className="admin-menu-icon" />
                 <span className="admin-menu-text mt-2">Contact Us</span>
               </div>
             </li>

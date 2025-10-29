@@ -175,25 +175,25 @@ const SearchForm = ({ onSearch }) => {
               </div>
             </div>
             <div className="mt-3 mb-3 ">
-              <div className="row">
-                {/* area */}
-                <div className="col-lg-2 col-md-6 col-spacing">
-                  <button
-                    className="btn  mt-lg-0 mt-3 app-btn btn-outline-secondary app-btn-outline btns w-100"
-                    onClick={handleClear}
-                  >
-                    Clear
-                  </button>
-                </div>
-                <div className="col-lg-2 col-md-6 col-spacing">
-                  <button
-                    className="btn mt-lg-0 mt-3 app-btn btns bt w-100"
-                    onClick={handleSearch}
-                  >
-                    Search
-                  </button>
-                </div>
-              </div>
+              <div className="row justify-content-center">
+  <div className="col-lg-3 col-md-4 col-6 text-center">
+    <button
+      className="btn mt-lg-0 mt-3 app-btn btn-outline-secondary app-btn-outline btns w-100"
+      onClick={handleClear}
+    >
+      Clear
+    </button>
+  </div>
+  <div className="col-lg-3 col-md-4 col-6 text-center">
+    <button
+      className="btn mt-lg-0 mt-3 app-btn btns bt w-100"
+      onClick={handleSearch}
+    >
+      Search
+    </button>
+  </div>
+</div>
+
             </div>
           </div>
         </div>

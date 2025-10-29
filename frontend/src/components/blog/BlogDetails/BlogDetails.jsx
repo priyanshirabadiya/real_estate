@@ -116,14 +116,14 @@ export default function Breadcrumb() {
             Home
           </a>
           <span style={{ margin: "0 8px" }}>{">"}</span>
-          <a
+          {/* <a
             href="#"
             className="businesstext-5678"
             style={{ color: "#77C720", cursor: "pointer" }}
           >
             {blog.tag || "Business"}
-          </a>
-          <span style={{ margin: "0 8px" }}>{">"}</span>
+          </a> */}
+          {/* <span style={{ margin: "0 8px" }}>{">"}</span> */}
           <span style={{ color: "#333" }}>{blog.title}</span>
         </div>
 

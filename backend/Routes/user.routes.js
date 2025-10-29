@@ -8,4 +8,5 @@ userRoutes.post("/loginUser", loginUser);
 
 userRoutes.get("/allusers", getAll);
 
+
 module.exports = userRoutes;

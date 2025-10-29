@@ -41,7 +41,7 @@ export default function ProductDetail() {
       <PropertyDetailsSection property={property} />
       <FloorPlans property={property} />
       <VideoSection property={property} />
-      <ReviewForm property={property} />
+      {/* <ReviewForm property={property} /> */}
       <Footer />
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FaTrashAlt } from "react-icons/fa";
 import "./Userinfo.css";
 
 const Userinfo = () => {
@@ -38,7 +39,8 @@ const Userinfo = () => {
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Bio</th>
+
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -48,7 +50,25 @@ const Userinfo = () => {
                   <td>{user.lastName || "-"}</td>
                   <td>{user.email || "-"}</td>
                   <td>{user.role || "-"}</td>
-                  <td>{user.bio || "-"}</td>
+
+                  <td>
+                    {" "}
+                    <button
+                      className="btn btn-sm"
+                      style={{
+                        color: "red",
+                        background: "transparent",
+                        border: "none",
+                      }}
+                    >
+                      <FaTrashAlt
+                        style={{
+                          color: "red",
+                          fontSize: "18px",
+                        }}
+                      />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
